@@ -3,10 +3,6 @@ class Qt < Formula
 
   desc "Cross-platform application and UI framework"
   homepage "https://www.qt.io/"
-  url "https://download.qt.io/official_releases/qt/6.7/6.7.0/single/qt-everywhere-src-6.7.0.tar.xz"
-  mirror "https://qt.mirror.constant.com/archive/qt/6.7/6.7.0/single/qt-everywhere-src-6.7.0.tar.xz"
-  mirror "https://mirrors.ukfast.co.uk/sites/qt.io/archive/qt/6.7/6.7.0/single/qt-everywhere-src-6.7.0.tar.xz"
-  sha256 "bf5089912364f99cf9baf6c109de76a3172eec6267f148c69800575c47f90087"
   license all_of: [
     "BSD-3-Clause",
     "GFDL-1.3-no-invariants-only",
@@ -14,8 +10,22 @@ class Qt < Formula
     { "GPL-3.0-only" => { with: "Qt-GPL-exception-1.0" } },
     "LGPL-3.0-only",
   ]
-  revision 1
+  revision 2
   head "https://code.qt.io/qt/qt5.git", branch: "dev"
+
+  stable do
+    url "https://download.qt.io/official_releases/qt/6.7/6.7.0/single/qt-everywhere-src-6.7.0.tar.xz"
+    mirror "https://qt.mirror.constant.com/archive/qt/6.7/6.7.0/single/qt-everywhere-src-6.7.0.tar.xz"
+    mirror "https://mirrors.ukfast.co.uk/sites/qt.io/archive/qt/6.7/6.7.0/single/qt-everywhere-src-6.7.0.tar.xz"
+    sha256 "bf5089912364f99cf9baf6c109de76a3172eec6267f148c69800575c47f90087"
+
+    # Backport support for FFMpeg 7
+    patch do
+      url "https://github.com/qt/qtwebengine-chromium/commit/65aaac35d040aef90c2e9f41a651b5a23470e457.patch?full_index=1"
+      sha256 "2875e9c534da34902fb113b4171d7a4960e6bc27f6ad45d49929ecf667856d48"
+      directory "qtwebengine/src/3rdparty"
+    end
+  end
 
   # The first-party website doesn't make version information readily available,
   # so we check the `head` repository tags instead.
@@ -82,7 +92,7 @@ class Qt < Formula
     depends_on "alsa-lib"
     depends_on "at-spi2-core"
     # TODO: depends_on "bluez"
-    depends_on "ffmpeg@6"
+    depends_on "ffmpeg"
     depends_on "fontconfig"
     depends_on "gstreamer"
     # TODO: depends_on "gypsy"
