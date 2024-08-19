@@ -8,6 +8,11 @@ class Mackup < Formula
   license "GPL-3.0-or-later"
   head "https://github.com/lra/mackup.git", branch: "master"
 
+  # see discussions in https://github.com/lra/mackup/issues/2035,
+  # https://github.com/lra/mackup/issues/1924,
+  # and https://github.com/lra/mackup/discussions/1969#discussioncomment-8485995
+  deprecate! date: "2024-08-19", because: "Potential data loss on MacOS 14 (Sonoma) when using backup or restore command"
+
   bottle do
     sha256 cellar: :any_skip_relocation, arm64_sonoma:   "dac4b2e6a5dbb4b99eeb476ca7a80d7b313dab3f733474ab24c6ad02bee7637e"
     sha256 cellar: :any_skip_relocation, arm64_ventura:  "dac4b2e6a5dbb4b99eeb476ca7a80d7b313dab3f733474ab24c6ad02bee7637e"
